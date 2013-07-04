@@ -166,7 +166,7 @@ copyex:
 	mov	r1, #5
 	str	r1, [r0]
 #define S3C2440_MPLL_400MHZ	((0x7f<<12)|(2<<4)|(1))
-#define S3C2440_UPLL_50MHZ	((0x38<<12)|(2<<4)|(2))	
+#define S3C2440_UPLL_48MHZ	((0x38<<12)|(2<<4)|(2))	
 #define MPLLCON		0x4c000004
 #define UPLLCON		0x4c000009
 	ldr	r0, =MPLLCON
@@ -174,7 +174,7 @@ copyex:
 	str	r1, [r0]
 
 	ldr	r0, =UPLLCON
-	ldr	r1, =S3C2440_UPLL_400MHZ
+	ldr	r1, =S3C2440_UPLL_48MHZ
 	str	r1, [r0]
 #endif	/* CONFIG_S3C2400 || CONFIG_S3C2410 */
 
