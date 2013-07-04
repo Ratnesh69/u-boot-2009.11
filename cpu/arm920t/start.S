@@ -168,7 +168,7 @@ copyex:
 #define S3C2440_MPLL_400MHZ	((0x7f<<12)|(2<<4)|(1))
 #define S3C2440_UPLL_48MHZ	((0x38<<12)|(2<<4)|(2))	
 #define MPLLCON		0x4c000004
-#define UPLLCON		0x4c000009
+#define UPLLCON		0x4c000008
 	ldr	r0, =MPLLCON
 	ldr	r1, =S3C2440_MPLL_400MHZ
 	str	r1, [r0]
