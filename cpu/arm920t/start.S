@@ -156,15 +156,25 @@ copyex:
 	ldr	r0, =INTMSK
 	str	r1, [r0]
 # if defined(CONFIG_S3C2410)
-	ldr	r1, =0x3ff
+	ldr	r1, =0x7fff
 	ldr	r0, =INTSUBMSK
 	str	r1, [r0]
 # endif
 
-	/* FCLK:HCLK:PCLK = 1:2:4 */
-	/* default FCLK is 120 MHz ! */
+	/* FCLK:HCLK:PCLK = 1:4:5 */
 	ldr	r0, =CLKDIVN
-	mov	r1, #3
+	mov	r1, #5
+	str	r1, [r0]
+#define S3C2440_MPLL_400MHZ	((0x7f<<12)|(2<<4)|(1))
+#define S3C2440_UPLL_50MHZ	((0x38<<12)|(2<<4)|(2))	
+#define MPLLCON		0x4c000004
+#define UPLLCON		0x4c000009
+	ldr	r0, =MPLLCON
+	ldr	r1, =S3C2440_MPLL_400MHZ
+	str	r1, [r0]
+
+	ldr	r0, =UPLLCON
+	ldr	r1, =S3C2440_UPLL_400MHZ
 	str	r1, [r0]
 #endif	/* CONFIG_S3C2400 || CONFIG_S3C2410 */
 
