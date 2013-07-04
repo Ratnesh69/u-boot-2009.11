@@ -40,6 +40,8 @@ SECTIONS
 	.text :
 	{
 		cpu/arm920t/start.o	(.text)
+		board/samsung/mini2440/lowlevel_init.o	(.text)
+		board/samsung/mini2440/init.o	(.text)
 		*(.text)
 	}
 

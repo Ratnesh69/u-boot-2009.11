@@ -37,6 +37,7 @@
 #define	CONFIG_S3C2410		1	/* in a SAMSUNG S3C2410 SoC     */
 #define	CONFIG_S3C2440		1	/* in a SAMSUNG S3C2410 SoC     */
 #define CONFIG_SMDK2410		1	/* on a SAMSUNG SMDK2410 Board  */
+#define CONFIG_SKIP_RELOCATE_UBOOT	1
 
 /* input clock of PLL */
 #define CONFIG_SYS_CLK_FREQ	12000000/* the SMDK2410 has 12MHz input clock */
@@ -114,7 +115,7 @@
  * Miscellaneous configurable options
  */
 #define	CONFIG_SYS_LONGHELP				/* undef to save memory		*/
-#define	CONFIG_SYS_PROMPT		"SMDK2410 # "	/* Monitor Command Prompt	*/
+#define	CONFIG_SYS_PROMPT		"[yang@MINI2440] # "	/* Monitor Command Prompt	*/
 #define	CONFIG_SYS_CBSIZE		256		/* Console I/O Buffer Size	*/
 #define	CONFIG_SYS_PBSIZE (CONFIG_SYS_CBSIZE+sizeof(CONFIG_SYS_PROMPT)+16) /* Print Buffer Size */
 #define	CONFIG_SYS_MAXARGS		16		/* max number of command args	*/

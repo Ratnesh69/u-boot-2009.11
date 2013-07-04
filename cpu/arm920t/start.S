@@ -215,6 +215,15 @@ stack_setup:
 #endif
 	sub	sp, r0, #12		/* leave 3 words for abort-stack    */
 
+
+	bl	nand_init_ll
+	ldr	r0, _TEXT_BASE 
+	mov	r1, #0
+	ldr	r2, _bss_start
+	sub	r2, r2, r0
+	bl	copy_code_to_sdram
+	
+
 clear_bss:
 	ldr	r0, _bss_start		/* find start of bss segment        */
 	ldr	r1, _bss_end		/* stop here                        */
