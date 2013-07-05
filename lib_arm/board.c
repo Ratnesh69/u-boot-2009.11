@@ -299,6 +299,10 @@ void start_armboot (void)
 #ifndef CONFIG_SYS_NO_FLASH
 	/* configure available FLASH banks */
 	display_flash_config (flash_init ());
+#ifdef DEBUG
+	extern flash_info_t flash_info[CONFIG_SYS_MAX_FLASH_BANKS];
+	flash_print_info(flash_info);
+#endif
 #endif /* CONFIG_SYS_NO_FLASH */
 
 #ifdef CONFIG_VFD

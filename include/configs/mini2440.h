@@ -39,6 +39,7 @@
 #define CONFIG_SMDK2410		1	/* on a SAMSUNG SMDK2410 Board  */
 #define CONFIG_SKIP_RELOCATE_UBOOT	1
 
+
 /* input clock of PLL */
 #define CONFIG_SYS_CLK_FREQ	12000000/* the SMDK2410 has 12MHz input clock */
 
@@ -152,17 +153,23 @@
 #define PHYS_FLASH_1		0x00000000 /* Flash Bank #1 */
 
 #define CONFIG_SYS_FLASH_BASE		PHYS_FLASH_1
-
+#define CONFIG_SYS_MONITOR_BASE		CONFIG_SYS_FLASH_BASE
+#define CONFIG_SYS_FLASH_CFI		1
+#define CONFIG_SYS_FLASH_CFI_AMD_RESET  1
 /*-----------------------------------------------------------------------
  * FLASH and environment organization
  */
-
-#define CONFIG_AMD_LV400	1	/* uncomment this if you have a LV400 flash */
 #if 0
+#define CONFIG_AMD_LV400	1	/* uncomment this if you have a LV400 flash */
 #define CONFIG_AMD_LV800	1	/* uncomment this if you have a LV800 flash */
 #endif
 
 #define CONFIG_SYS_MAX_FLASH_BANKS	1	/* max number of memory banks */
+
+#define CONFIG_FLASH_CFI_DRIVER		1
+#define CONFIG_SYS_MAX_FLASH_SECT	35	/* Max number of sectors per flash	*/
+#define CONFIG_ENV_ADDR		(CONFIG_SYS_FLASH_BASE + 0xf0000)
+
 #ifdef CONFIG_AMD_LV800
 #define PHYS_FLASH_SIZE		0x00100000 /* 1MB */
 #define CONFIG_SYS_MAX_FLASH_SECT	(19)	/* max number of sectors on one chip */

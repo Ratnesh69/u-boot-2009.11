@@ -1109,6 +1109,37 @@ void flash_print_info (flash_info_t * info)
 #endif
 	}
 	putc ('\n');
+
+#ifdef DEBUG
+#define PDEBUG(a)	printf(#a": %u\n", info->a)
+	PDEBUG(size);			/* total bank size in bytes		*/
+	PDEBUG(sector_count);		/* number of erase units		*/
+	PDEBUG(flash_id);		/* combined device & manufacturer code	*/
+#ifdef CONFIG_SYS_FLASH_CFI
+	PDEBUG(portwidth);		/* the width of the port		*/
+	PDEBUG(chipwidth);		/* the width of the chip		*/
+	PDEBUG(buffer_size);		/* # of bytes in write buffer		*/
+	PDEBUG(erase_blk_tout);		/* maximum block erase timeout		*/
+	PDEBUG(write_tout);		/* maximum write timeout		*/
+	PDEBUG(buffer_write_tout);	/* maximum buffer write timeout		*/
+	PDEBUG(vendor);			/* the primary vendor id		*/
+	PDEBUG(cmd_reset);		/* vendor specific reset command	*/
+	PDEBUG(interface);		/* used for x8/x16 adjustments		*/
+	PDEBUG(legacy_unlock);		/* support Intel legacy (un)locking	*/
+	PDEBUG(manufacturer_id);	/* manufacturer id			*/
+	PDEBUG(device_id);		/* device id				*/
+	PDEBUG(device_id2);		/* extended device id			*/
+	PDEBUG(ext_addr);		/* extended query table address		*/
+	PDEBUG(cfi_version);		/* cfi version				*/
+	PDEBUG(cfi_offset);		/* offset for cfi query			*/
+	PDEBUG(addr_unlock1);		/* unlock address 1 for AMD flash roms  */
+	PDEBUG(addr_unlock2);		/* unlock address 2 for AMD flash roms  */
+	printf("name: %s\n", info->name);		/* human-readable name	                */
+#endif
+#undef PDEBUG
+#endif
+
+
 	return;
 }
 
@@ -1857,7 +1888,7 @@ ulong flash_get_size (phys_addr_t base, int banknum)
 				sect_cnt++;
 			}
 		}
-
+		debug("j = %d\n", j);
 		info->sector_count = sect_cnt;
 		info->size = 1 << qry.dev_size;
 		/* multiply the size by the number of chips */
@@ -1899,6 +1930,7 @@ unsigned long flash_init (void)
 {
 	unsigned long size = 0;
 	int i;
+	int ret;
 #if defined(CONFIG_SYS_FLASH_AUTOPROTECT_LIST)
 	struct apl_s {
 		ulong start;
@@ -1918,8 +1950,9 @@ unsigned long flash_init (void)
 	for (i = 0; i < CONFIG_SYS_MAX_FLASH_BANKS; ++i) {
 		flash_info[i].flash_id = FLASH_UNKNOWN;
 
-		if (!flash_detect_legacy (BANK_BASE(i), i))
+		if (!(ret = flash_detect_legacy (BANK_BASE(i), i)))
 			flash_get_size (BANK_BASE(i), i);
+		printf("\n*****ret = %d\n", ret);
 		size += flash_info[i].size;
 		if (flash_info[i].flash_id == FLASH_UNKNOWN) {
 #ifndef CONFIG_SYS_FLASH_QUIET_TEST
